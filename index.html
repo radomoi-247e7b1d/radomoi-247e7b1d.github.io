@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>蓝莓视频 - 影视聚合与深度解析</title>
+  <meta name="description" content="蓝莓视频汇聚电影、剧集、纪录片与综艺，提供热播榜、分类筛选、深度解析与用户评论。适合影迷找到近期可看内容与观看指南。">
+  <meta name="keywords" content="影视聚合,剧集推荐,纪录片解析,综艺热播,观影指南">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%232C3E50'/%3E%3Cpath d='M13 10l10 6-10 6V10z' fill='%23F5A623'/%3E%3C/svg%3E">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #2C3E50;
+      --accent: #F5A623;
+      --accent-light: #FEF3E2;
+      --bg: #F4F6F8;
+      --surface: #FFFFFF;
+      --text: #1E2A36;
+      --text-secondary: #5A6B7A;
+      --border: #E2E8F0;
+      --radius: 10px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+      --header-height: 64px;
+      --announce-height: 40px;
+      --sticky-offset: calc(var(--header-height) + var(--announce-height));
+      --max-width: 1360px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.65; padding-top: var(--sticky-offset); }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+    ul { list-style: none; }
+
+    /* 吸顶区域 */
+    .announce-bar { background: var(--primary); color: #fff; font-size: 14px; height: var(--announce-height); display: flex; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+    .announce-bar .container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .announce-tag { background: var(--accent); color: var(--primary); font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 20px; }
+    .site-header { background: var(--surface); box-shadow: 0 1px 4px rgba(0,0,0,0.04); height: var(--header-height); position: fixed; top: var(--announce-height); left: 0; right: 0; z-index: 99; }
+    .header-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; display: flex; align-items: center; height: 100%; gap: 32px; }
+    .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .brand svg { width: 34px; height: 34px; }
+    .brand-text { font-size: 22px; font-weight: 700; color: var(--primary); letter-spacing: 0.5px; }
+    .main-nav { display: flex; gap: 20px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+    .main-nav::-webkit-scrollbar { display: none; }
+    .main-nav a { font-size: 15px; color: var(--text-secondary); white-space: nowrap; padding: 4px 0; border-bottom: 2px solid transparent; transition: 0.2s; }
+    .main-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .header-actions { display: flex; gap: 12px; flex-shrink: 0; }
+    .btn-outline { border: 1px solid var(--border); background: transparent; padding: 6px 16px; border-radius: 20px; font-size: 13px; color: var(--text-secondary); cursor: pointer; transition: 0.2s; }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-solid { background: var(--accent); color: var(--primary); border: none; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-solid:hover { background: #e0951c; }
+
+    /* 容器与布局 */
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+    .three-col { display: grid; grid-template-columns: 180px 1fr 260px; gap: 28px; margin: 32px 0; }
+    .left-sidebar { position: sticky; top: calc(var(--sticky-offset) + 16px); align-self: start; }
+    .right-sidebar { position: sticky; top: calc(var(--sticky-offset) + 16px); align-self: start; }
+
+    /* 首屏 */
+    .hero { background: linear-gradient(135deg, #1a2632 0%, #2C3E50 60%, #3e5368 100%); color: #fff; padding: 48px 0 40px; margin-bottom: 0; position: relative; overflow: hidden; }
+    .hero::after { content: ''; position: absolute; right: -60px; bottom: -80px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(245,166,35,0.18) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: center; }
+    .hero-text h1 { font-size: 42px; font-weight: 800; letter-spacing: 1px; margin-bottom: 12px; }
+    .hero-text .hero-desc { font-size: 16px; color: rgba(255,255,255,0.8); max-width: 560px; line-height: 1.7; margin-bottom: 24px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-actions a { padding: 10px 28px; border-radius: 30px; font-size: 15px; font-weight: 600; transition: 0.2s; }
+    .hero-actions .primary-btn { background: var(--accent); color: var(--primary); }
+    .hero-actions .primary-btn:hover { background: #e0951c; }
+    .hero-actions .ghost-btn { border: 1px solid rgba(255,255,255,0.4); color: #fff; }
+    .hero-actions .ghost-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-visual { display: flex; justify-content: center; align-items: center; }
+    .hero-visual svg { width: 100%; max-width: 320px; height: auto; }
+
+    /* 通用板块 */
+    .section { margin-bottom: 36px; }
+    .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+    .section-title { font-size: 20px; font-weight: 700; color: var(--primary); position: relative; padding-left: 14px; }
+    .section-title::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 4px; background: var(--accent); border-radius: 2px; }
+    .section-more { font-size: 13px; color: var(--text-secondary); }
+    .section-more:hover { color: var(--accent); }
+
+    /* 左侧频道索引 */
+    .channel-list { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 0; }
+    .channel-list h3 { font-size: 14px; color: var(--text-secondary); padding: 0 18px 10px; letter-spacing: 1px; }
+    .channel-list a { display: block; padding: 9px 18px; font-size: 14px; color: var(--text); border-left: 3px solid transparent; transition: 0.15s; }
+    .channel-list a:hover { background: var(--accent-light); border-left-color: var(--accent); color: var(--accent); }
+
+    /* 卡片网格 */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 18px; }
+    .card { background: var(--surface); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: transform 0.2s; display: flex; flex-direction: column; }
+    .card:hover { transform: translateY(-3px); }
+    .card-img { position: relative; aspect-ratio: 4/3; overflow: hidden; background: #e9edf2; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
+    .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+    .tag { font-size: 11px; background: var(--accent-light); color: #b8730e; padding: 1px 8px; border-radius: 10px; white-space: nowrap; }
+    .card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 8px; flex: 1; }
+    .card-meta { font-size: 12px; color: #94a3b8; display: flex; justify-content: space-between; }
+
+    /* 紧凑列表 */
+    .compact-list { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px 0; }
+    .compact-list li { display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid var(--border); font-size: 14px; gap: 12px; }
+    .compact-list li:last-child { border-bottom: none; }
+    .compact-list .item-name { font-weight: 500; flex: 1; }
+    .compact-list .item-note { color: var(--text-secondary); font-size: 13px; text-align: right; white-space: nowrap; }
+    .time-badge { font-size: 11px; color: var(--accent); background: var(--accent-light); padding: 1px 8px; border-radius: 10px; }
+
+    /* 分类入口网格 */
+    .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .cat-item { background: var(--surface); border-radius: var(--radius); padding: 16px 12px; text-align: center; box-shadow: var(--shadow); transition: 0.2s; border: 1px solid transparent; }
+    .cat-item:hover { border-color: var(--accent); background: var(--accent-light); }
+    .cat-icon { font-size: 24px; margin-bottom: 4px; display: block; }
+    .cat-name { font-size: 14px; font-weight: 600; }
+    .cat-count { font-size: 12px; color: var(--text-secondary); }
+
+    /* 深度解析 */
+    .deep-dive { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 30px; }
+    .deep-dive h2 { font-size: 22px; margin-bottom: 16px; color: var(--primary); }
+    .deep-dive h3 { font-size: 17px; margin: 22px 0 8px; color: var(--primary); }
+    .deep-dive p { font-size: 15px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.8; }
+    .deep-dive ul { padding-left: 20px; margin-bottom: 14px; }
+    .deep-dive ul li { font-size: 15px; color: var(--text-secondary); margin-bottom: 6px; list-style: disc; line-height: 1.7; }
+
+    /* 指南步骤 */
+    .guide-steps { display: flex; flex-direction: column; gap: 14px; }
+    .step-item { display: flex; gap: 16px; background: var(--surface); border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow); }
+    .step-num { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--primary); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .step-content h4 { font-size: 15px; margin-bottom: 2px; }
+    .step-content p { font-size: 13px; color: var(--text-secondary); }
+
+    /* FAQ */
+    .faq-list details { background: var(--surface); border-radius: var(--radius); margin-bottom: 10px; box-shadow: var(--shadow); padding: 0 18px; }
+    .faq-list summary { font-size: 15px; font-weight: 500; padding: 14px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: '+'; font-size: 20px; color: var(--accent); transition: 0.2s; }
+    .faq-list details[open] summary::after { content: '−'; }
+    .faq-list details p { font-size: 14px; color: var(--text-secondary); padding-bottom: 14px; line-height: 1.7; }
+
+    /* 评论 */
+    .comment-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .comment-card { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); font-size: 13px; }
+    .comment-user { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-light); color: var(--accent); font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+    .comment-name { font-weight: 600; font-size: 13px; }
+    .comment-text { color: var(--text-secondary); line-height: 1.5; }
+
+    /* 资讯 */
+    .news-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .news-item { background: var(--surface); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
+    .news-date { font-size: 12px; color: var(--accent); margin-bottom: 4px; }
+    .news-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .news-summary { font-size: 13px; color: var(--text-secondary); }
+
+    /* 相关推荐标签 */
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag-cloud a { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 13px; color: var(--text-secondary); transition: 0.2s; }
+    .tag-cloud a:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+    /* 热门榜单 */
+    .rank-list { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px 0; }
+    .rank-item { display: flex; align-items: center; gap: 12px; padding: 10px 18px; border-bottom: 1px solid var(--border); }
+    .rank-item:last-child { border-bottom: none; }
+    .rank-num { width: 22px; font-weight: 700; font-size: 15px; color: #94a3b8; text-align: center; }
+    .rank-item:nth-child(1) .rank-num { color: #e67e22; }
+    .rank-item:nth-child(2) .rank-num { color: #f1c40f; }
+    .rank-item:nth-child(3) .rank-num { color: #cd6133; }
+    .rank-name { flex: 1; font-weight: 500; font-size: 14px; }
+    .rank-score { font-size: 13px; color: var(--accent); font-weight: 600; }
+
+    /* 右栏模块 */
+    .side-block { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; margin-bottom: 20px; }
+    .side-block h3 { font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--primary); }
+    .side-list li { padding: 6px 0; font-size: 13px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .side-list li:last-child { border-bottom: none; }
+    .side-list .side-title { font-weight: 500; color: var(--text); }
+    .side-list .side-meta { font-size: 12px; color: #94a3b8; }
+
+    /* 页尾 */
+    .site-footer { background: #1E2A36; color: #b0bfcc; padding: 40px 0 24px; margin-top: 20px; }
+    .footer-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
+    .footer-brand .brand-text { color: #fff; font-size: 20px; margin-bottom: 8px; }
+    .footer-brand p { font-size: 13px; line-height: 1.6; margin-bottom: 12px; }
+    .footer-col h4 { font-size: 14px; color: #fff; margin-bottom: 10px; }
+    .footer-col a { display: block; font-size: 13px; padding: 3px 0; color: #b0bfcc; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom { max-width: var(--max-width); margin: 24px auto 0; padding: 16px 24px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #8899a8; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+    /* 响应式 */
+    @media (max-width: 1024px) {
+      .three-col { grid-template-columns: 1fr 260px; }
+      .left-sidebar { display: none; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .hero-text h1 { font-size: 34px; }
+      .cat-grid { grid-template-columns: repeat(4, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 740px) {
+      .three-col { grid-template-columns: 1fr; }
+      .right-sidebar { position: static; }
+      .header-inner { gap: 12px; padding: 0 16px; }
+      .main-nav { gap: 14px; }
+      .main-nav a { font-size: 13px; }
+      .header-actions .btn-outline { display: none; }
+      .hero-text h1 { font-size: 28px; }
+      .hero { padding: 32px 0 28px; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .news-list { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .footer-inner { grid-template-columns: 1fr; gap: 20px; }
+      .comment-grid { grid-template-columns: 1fr; }
+      .deep-dive { padding: 20px; }
+      .container { padding: 0 16px; }
+    }
+    @media (max-width: 400px) {
+      .card-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .card-title { font-size: 13px; }
+      .card-desc { font-size: 12px; }
+      .hero-actions a { padding: 8px 18px; font-size: 14px; }
+    }
+    /* 锚点偏移 */
+    section[id] { scroll-margin-top: calc(var(--sticky-offset) + 16px); }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce-bar">
+    <div class="container">
+      <span class="announce-tag">NEW</span>
+      <span>本周新增 12 部剧集 · 《暗夜回声》全集上线 · 冬季纪录片专题开放</span>
+    </div>
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/#top" class="brand" aria-label="蓝莓视频首页">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" fill="#2C3E50"/>
+          <circle cx="20" cy="20" r="7" fill="#F5A623"/>
+          <path d="M8 20 Q14 12 20 20 Q26 28 32 20" stroke="#F5A623" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text">蓝莓视频</span>
+      </a>
+      <nav class="main-nav" aria-label="主导航">
+        <a href="/#hot-picks">精选推荐</a>
+        <a href="/#latest">最新更新</a>
+        <a href="/#categories">分类</a>
+        <a href="/#deep-dive">深度解析</a>
+        <a href="/#guide">观影指南</a>
+        <a href="/#faq">常见问题</a>
+        <a href="/#comments">用户评论</a>
+        <a href="/#news">资讯</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-outline" type="button" aria-label="搜索">搜索</button>
+        <button class="btn-solid" type="button">登录</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 首屏 -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>蓝莓视频</h1>
+        <p class="hero-desc">聚合电影、剧集、纪录片与综艺的影视内容平台。提供热播榜、分类筛选、深度解析与真实用户评论，帮助影迷快速定位近期可看内容。</p>
+        <div class="hero-actions">
+          <a href="/#hot-picks" class="primary-btn">浏览精选</a>
+          <a href="/#latest" class="ghost-btn">最新更新</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="40" y="30" width="240" height="160" rx="16" fill="#3E5368" opacity="0.5"/>
+          <rect x="60" y="50" width="200" height="120" rx="8" fill="#1a2632"/>
+          <polygon points="140,90 180,110 140,130" fill="#F5A623"/>
+          <circle cx="250" cy="70" r="20" fill="#F5A623" opacity="0.25"/>
+          <circle cx="70" cy="190" r="12" fill="#F5A623" opacity="0.2"/>
+          <rect x="80" y="190" width="80" height="6" rx="3" fill="#F5A623" opacity="0.4"/>
+          <rect x="170" y="190" width="50" height="6" rx="3" fill="#F5A623" opacity="0.2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主内容区 三栏门户 -->
+  <div class="container">
+    <div class="three-col">
+
+      <!-- 左侧频道索引 -->
+      <aside class="left-sidebar">
+        <nav class="channel-list" aria-label="频道索引">
+          <h3>频道索引</h3>
+          <a href="/#hot-picks">电影精选</a>
+          <a href="/#hot-picks">剧集热播</a>
+          <a href="/#hot-picks">纪录片</a>
+          <a href="/#hot-picks">综艺节目</a>
+          <a href="/#categories">悬疑推理</a>
+          <a href="/#categories">古装历史</a>
+          <a href="/#categories">科幻未来</a>
+          <a href="/#categories">都市情感</a>
+          <a href="/#categories">自然探索</a>
+          <a href="/#categories">喜剧脱口秀</a>
+        </nav>
+      </aside>
+
+      <!-- 中间主内容 -->
+      <main>
+
+        <!-- 1. 主题领域概览 -->
+        <section class="section" id="overview">
+          <h2 class="section-title">影视内容方向概览</h2>
+          <p style="font-size:15px;color:var(--text-secondary);line-height:1.8;margin-bottom:14px;">蓝莓视频覆盖的影视内容方向包括：剧情长片、系列剧集、纪录片、综艺节目与动画作品。当前值得关注的具体方向有：悬疑推理类剧集持续高产，2026 年秋季档上线了《迷雾档案》《暗夜回声》等作品；自然纪录片方面，《极地追踪》第二季正在更新；古装历史剧《长安十二时辰·续》进入收官阶段；科幻题材《星环之外》凭借硬核设定吸引了一批固定观众。综艺领域，《即兴喜剧大赛》第三季进入淘汰赛。</p>
+          <p style="font-size:15px;color:var(--text-secondary);line-height:1.8;">从观看场景来看，剧集适合连续追看，纪录片适合周末沉浸，综艺适合碎片时间。不同类别的更新节奏差异明显：剧集通常每周更新 2—4 集，纪录片多为周更，综艺则集中在周五至周日上线。了解这些节奏有助于规划观看顺序。</p>
+        </section>
+
+        <!-- 2. 精选内容推荐 -->
+        <section class="section" id="hot-picks">
+          <div class="section-header">
+            <h2 class="section-title">精选内容推荐</h2>
+            <a href="/#hot-picks" class="section-more">查看全部 →</a>
+          </div>
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-img"><img src="https://picsum.photos/seed/lanmei-miwudangan01/400/300" alt="迷雾档案剧集封面" width="400" height="300" loading="lazy"></div>
+              <div class="card-body">
+                <h3 class="card-title">迷雾档案</h3>
+                <div class="card-tags"><span class="tag">悬疑</span><span class="tag">刑侦</span><span class="tag">2026</span></div>
+                <p class="card-desc">一桩跨越十年的悬案重启，刑侦队长与档案修复师联手追查。前 8 集已上线，节奏紧凑，线索铺设扎实。</p>
+                <div class="card-meta"><span>热度 9,872</span><span>评分 8.7</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-img"><img src="https://picsum.photos/seed/lanmei-anyehuisheng02/400/300" alt="暗夜回声剧集封面" width="400" height="300" loading="lazy"></div>
+              <div class="card-body">
+                <h3 class="card-title">暗夜回声</h3>
+                <div class="card-tags"><span class="tag">惊悚</span><span class="tag">心理</span><span class="tag">全12集</span></div>
+                <p class="card-desc">声音设计师卷入一场城市连环失踪案，通过环境音线索逐步逼近真相。全集已上线，适合一次性刷完。</p>
+                <div class="card-meta"><span>热度 8,540</span><span>评分 8.4</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-img"><img src="https://picsum.photos/seed/lanmei-jidizhuizong03/400/300" alt="极地追踪纪录片封面" width="400" height="300" loading="lazy"></div>
+              <div class="card-body">
+                <h3 class="card-title">极地追踪 第二季</h3>
+                <div class="card-tags"><span class="tag">自然</span><span class="tag">纪录片</span><span class="tag">周更</span></div>
+                <p class="card-desc">跟随科考队深入北极圈，记录冰层消融下的生态变化。第二季新增海洋生物专题，画面与配乐水准在线。</p>
+                <div class="card-meta"><span>热度 6,320</span><span>评分 9.1</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-img"><img src="https://picsum.photos/seed/lanmei-changanshier04/400/300" alt="长安十二时辰续剧集封面" width="400" height="300" loading="lazy"></div>
+              <div class="card-body">
+                <h3 class="card-title">长安十二时辰·续</h3>
+                <div class="card-tags"><span class="tag">古装</span><span class="tag">历史</span><span class="tag">更新至24集</span></div>
+                <p class="card-desc">延续前作时间线，聚焦长安城地下势力的权力更迭。服化道保持水准，第 20—24 集进入高潮段落。</p>
+                <div class="card-meta"><span>热度 11,200</span><span>评分 8.5</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-img"><img src="https://picsum.photos/seed/lanmei-xinghuan05/400/300" alt="星环之外剧集封面" width="400" height="300" loading="lazy"></div>
+              <div class="card-body">
+                <h3 class="card-title">星环之外</h3>
+                <div class="card-tags"><span class="tag">科幻</span><span class="tag">硬核</span><span class="tag">更新至6集</span></div>
+                <p class="card-desc">人类首个星际殖民船在抵达目标星系前遭遇信号异常。科幻设定严谨，物理细节经过顾问审核。</p>
+                <div class="card-meta"><span>热度 7,890</span><span>评分 8.2</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-img"><img src="https://picsum.photos/seed/lanmei-jixingxiju06/400/300" alt="即兴喜剧大赛综艺封面" width="400" height="300" loading="lazy"></div>
+              <div class="card-body">
+                <h3 class="card-title">即兴喜剧大赛 第三季</h3>
+                <div class="card-tags"><span class="tag">综艺</span><span class="tag">喜剧</span><span class="tag">周五更新</span></div>
+                <p class="card-desc">新赛制引入“观众命题”环节，选手需在 30 秒内接住随机场景。第三期淘汰赛竞争激烈，笑点密集。</p>
+                <div class="card-meta"><span>热度 9,100</span><span>评分 8.0</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. 最新更新 / 热播动态 -->
+        <section class="section" id="latest">
+          <div class="section-header">
+            <h2 class="section-title">最新更新与热播动态</h2>
+            <a href="/#latest" class="section-more">更多动态 →</a>
+          </div>
+          <ul class="compact-list">
+            <li><span class="item-name">迷雾档案</span><span class="item-note">第 8 集已上线 · 今天 10:00</span></li>
+            <li><span class="item-name">暗夜回声</span><span class="item-note">全集上线 · 11 月 7 日</span></li>
+            <li><span class="item-name">极地追踪 第二季</span><span class="item-note">第 4 集更新 · 11 月 6 日</span></li>
+            <li><span class="item-name">长安十二时辰·续</span><span class="item-note">第 24 集上线 · 11 月 5 日</span></li>
+            <li><span class="item-name">星环之外</span><span class="item-note">第 6 集更新 · 11 月 4 日</span></li>
+            <li><span class="item-name">即兴喜剧大赛 第三季</span><span class="item-note">第 3 期上线 · 11 月 3 日</span></li>
+            <li><span class="item-name">城市味觉</span><span class="item-note">新纪录片首播 · 11 月 2 日</span></li>
+            <li><span class="item-name">刑侦笔记 第二季</span><span class="item-note">定档 11 月 15 日 · 预告已发布</span></li>
+          </ul>
+        </section>
+
+        <!-- 4. 分类入口 -->
+        <section class="section" id="categories">
+          <div class="section-header">
+            <h2 class="section-title">按类型浏览</h2>
+          </div>
+          <div class="cat-grid">
+            <a href="/#hot-picks" class="cat-item"><span class="cat-icon">🔍</span><span class="cat-name">悬疑推理</span><span class="cat-count">128 部</span></a>
+            <a href="/#hot-picks" class="cat-item"><span class="cat-icon">🏯</span><span class="cat-name">古装历史</span><span class="cat-count">86 部</span></a>
+            <a href="/#hot-picks" class="cat-item"><span class="cat-icon">🚀</span><span class="cat-name">科幻未来</span><span class="cat-count">54 部</span></a>
+            <a href="/#hot-picks" class="cat-item"><span class="cat-icon">💑</span><span class="cat-name">都市情感</span><span class="cat-count">102 部</span></a>
+            <a href="/#hot-picks" class="cat-item"><span class="cat-icon">🌿</span><span class="cat-name">自然探索</span><span class="cat-count">43 部</span></a>
+            <a href="/#hot-picks" class="cat-item"><span class="cat-icon">🎤</span><span class="cat-name">喜剧脱口秀</span><span class="cat-count">37 部</span></a>
+            <a href="/#hot-picks" class="cat-item"><span class="cat-icon">🧩</span><span class="cat-name">纪实人文</span><span class="cat-count">61 部</span></a>
+            <a href="/#hot-picks" class="cat-item"><span class="cat-icon">🎬</span><span class="cat-name">剧情长片</span><span class="cat-count">210 部</span></a>
+          </div>
+        </section>
+
+        <!-- 5. 深度解析正文 -->
+        <section class="section" id="deep-dive">
+          <div class="deep-dive">
+            <h2>悬疑剧与纪录片：类型差异与观看策略</h2>
+            <p>悬疑推理类剧集与自然纪录片是蓝莓视频上更新最频繁的两个方向，但它们在叙事节奏、观看方式和评价维度上差异明显。理解这些差异，有助于判断什么内容适合自己当下的状态。</p>
+
+            <h3>悬疑剧的节奏特征与追看判断</h3>
+            <p>悬疑剧的核心驱动力是信息释放节奏。以《迷雾档案》为例，前 8 集保持每集揭开一条新线索、同时埋下两条新伏笔的密度。这种结构适合连续追看，因为中断后容易丢失人物关系线索。判断一部悬疑剧是否值得投入时间，可以看前 3 集是否建立了清晰的“问题—阻碍—推进”循环。如果前 3 集仍在铺陈背景而未形成有效悬念，后续质量提升的概率通常较低。</p>
+            <ul>
+              <li>线索密度：每集是否提供至少一个可验证的新信息点</li>
+              <li>人物动机：关键角色的行为是否有明确的前因后果</li>
+              <li>反转质量：反转是否服务于主线，而非单纯制造意外</li>
+            </ul>
+
+            <h3>纪录片的观看门槛与选择依据</h3>
+            <p>自然纪录片如《极地追踪 第二季》的观看体验更接近沉浸阅读。它的价值不在于悬念，而在于信息密度与视觉呈现的匹配。选择纪录片时，首先看制作团队是否有相关领域的长期积累，其次看单集时长——40—50 分钟适合完整观看，20—30 分钟适合碎片时间。纪录片通常不适合跳集观看，因为每一集可能围绕独立主题展开，但整体编排有递进关系。</p>
+
+            <h3>古装历史剧的考据维度</h3>
+            <p>《长安十二时辰·续》这类古装剧的评价维度与悬疑剧不同：服化道还原度、历史事件改编的边界、人物塑造与史实之间的平衡，都是影响观看体验的关键因素。如果对历史细节敏感，建议优先选择有明确顾问团队的作品；如果更看重戏剧冲突，则可以放宽对考据的要求。</p>
+
+            <h3>综艺的碎片化消费逻辑</h3>
+            <p>《即兴喜剧大赛 第三季》代表了一类适合碎片时间的内容。单期节目通常由多个独立段落组成，可以从任意段落切入。判断综艺质量的核心指标是“笑点密度”和“选手稳定性”——前者决定单期观感，后者决定整季的追看价值。第三季引入观众命题环节后，选手的即兴能力差异被放大，前两期的淘汰结果也印证了这一点。</p>
+          </div>
+        </section>
+
+        <!-- 6. 体验指南 / 消费路径 -->
+        <section class="section" id="guide">
+          <div class="section-header">
+            <h2 class="section-title">观影顺序与选择指南</h2>
+          </div>
+          <div class="guide-steps">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>先确定当下可投入的时间长度</h4>
+                <p>40 分钟以上整块时间适合纪录片或剧情长片；20 分钟以内碎片时间适合综艺片段或短剧。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>查看更新进度与完结状态</h4>
+                <p>未完结剧集需要评估追更成本；已完结作品可以一次性规划观看节奏。更新至 20 集以上的剧集，建议先确认口碑再投入。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>对比同类型作品的前 3 集表现</h4>
+                <p>悬疑剧看线索铺设效率，纪录片看信息密度，综艺看笑点节奏。前 3 集是判断整部作品水准的有效窗口。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <h4>参考评分与评论中的具体维度</h4>
+                <p>关注评论中提到的具体集数、表演细节和剧本逻辑，而非笼统的好坏评价。评分 8.0 以上且评论集中在具体维度的作品更值得尝试。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. FAQ -->
+        <section class="section" id="faq">
+          <div class="section-header">
+            <h2 class="section-title">常见问题</h2>
+          </div>
+          <div class="faq-list">
+            <details>
+              <summary>悬疑剧一般多久更新一次？</summary>
+              <p>蓝莓视频上的悬疑剧多数采用周更模式，每周更新 2—4 集，部分作品会一次性放出全集。具体更新节奏以剧集页面标注为准。《迷雾档案》目前为每周三、周六各更新 1 集。</p>
+            </details>
+            <details>
+              <summary>《迷雾档案》和《暗夜回声》有什么区别？</summary>
+              <p>《迷雾档案》侧重刑侦程序与档案线索的还原，节奏偏写实；《暗夜回声》更强调心理惊悚与声音设计，氛围感更强。前者适合喜欢逻辑推演的观众，后者适合追求沉浸式紧张体验的观众。</p>
+            </details>
+            <details>
+              <summary>第一次接触纪录片从哪部开始看比较好？</summary>
+              <p>如果偏好自然类，可以从《极地追踪 第二季》入手，单集 45 分钟，画面与解说平衡；如果偏好人文类，《城市味觉》每集聚焦一个城市的饮食文化，门槛较低，适合入门。</p>
+            </details>
+            <details>
+              <summary>科幻剧的评判标准通常看哪些方面？</summary>
+              <p>主要看设定自洽性、科学细节的严谨程度以及人物在极端环境下的行为逻辑。《星环之外》在物理设定上设有顾问审核，前 6 集的信息释放节奏较稳，适合对硬科幻有要求的观众。</p>
+            </details>
+            <details>
+              <summary>古装剧的考据重要吗？</summary>
+              <p>取决于观看目的。如果希望从剧中了解历史背景，考据严谨度是重要指标；如果更看重戏剧冲突和人物关系，可以适度放宽。《长安十二时辰·续》在服化道和官制称谓上保持了较高还原度。</p>
+            </details>
+            <details>
+              <summary>综艺节目适合按什么顺序观看？</summary>
+              <p>《即兴喜剧大赛 第三季》每期由多个独立段落组成，可以从任意一期切入。但淘汰赛阶段建议按顺序观看，因为选手的晋级状态和命题难度存在递进关系。</p>
+            </details>
+          </div>
+        </section>
+
+        <!-- 8. 用户评论 -->
+        <section class="section" id="comments">
+          <div class="section-header">
+            <h2 class="section-title">用户评论</h2>
+          </div>
+          <div class="comment-grid">
+            <div class="comment-card"><div class="comment-user"><span class="avatar">影</span><span class="comment-name">影迷小陈</span></div><p class="comment-text">《迷雾档案》第 7 集的档案室对峙戏拍得真好，线索回收干净利落。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">追</span><span class="comment-name">追剧老张</span></div><p class="comment-text">暗夜回声的声音设计确实用心，戴耳机看体验完全不同。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">纪</span><span class="comment-name">纪录片爱好者</span></div><p class="comment-text">极地追踪第二季第 4 集的海豹镜头太震撼了，摄制组不容易。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">长</span><span class="comment-name">长安旧梦</span></div><p class="comment-text">长安续集的服化道保持了前作水准，但第 22 集的改编有点仓促。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">星</span><span class="comment-name">星环观察者</span></div><p class="comment-text">星环之外的物理设定能看出下过功夫，第 5 集的引力弹弓桥段很合理。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">喜</span><span class="comment-name">喜剧打工人</span></div><p class="comment-text">即兴喜剧第三季的观众命题环节比前两季有意思，但选手水平差距有点大。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">迷</span><span class="comment-name">迷雾追踪者</span></div><p class="comment-text">每集都在猜凶手，第 8 集结尾那个反转确实没想到。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">城</span><span class="comment-name">城市味觉粉丝</span></div><p class="comment-text">城市味觉第一集讲成都夜市，看完直接订了机票。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">夜</span><span class="comment-name">夜猫子看片</span></div><p class="comment-text">暗夜回声全集刷完，后三集节奏稍微拖了一点，整体还是推荐的。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">理</span><span class="comment-name">理性观剧</span></div><p class="comment-text">星环之外的评分 8.2 比较合理，设定好但人物塑造还有提升空间。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">极</span><span class="comment-name">极地迷</span></div><p class="comment-text">每周等极地追踪更新的日子很煎熬，45 分钟根本不够看。</p></div>
+            <div class="comment-card"><div class="comment-user"><span class="avatar">中</span><span class="comment-name">中文剧迷</span></div><p class="comment-text">长安十二时辰续集的美术比第一部更精细了，值得细看。</p></div>
+          </div>
+        </section>
+
+        <!-- 9. 相关资讯 -->
+        <section class="section" id="news">
+          <div class="section-header">
+            <h2 class="section-title">相关资讯</h2>
+          </div>
+          <div class="news-list">
+            <div class="news-item">
+              <div class="news-date">2026-11-08</div>
+              <h3 class="news-title">《迷雾档案》第 8 集上线，线索指向十年前的旧案</h3>
+              <p class="news-summary">本集揭开档案修复师与失踪者的关联，结尾出现新证人。</p>
+            </div>
+            <div class="news-item">
+              <div class="news-date">2026-11-07</div>
+              <h3 class="news-title">《暗夜回声》全集放出，声音设计特辑同步上线</h3>
+              <p class="news-summary">制作团队发布幕后特辑，详解环境音采集与混音过程。</p>
+            </div>
+            <div class="news-item">
+              <div class="news-date">2026-11-06</div>
+              <h3 class="news-title">《极地追踪 第二季》第 4 集聚焦海冰消融与生物迁徙</h3>
+              <p class="news-summary">本集记录科考队在北纬 78 度的冰站观测数据。</p>
+            </div>
+            <div class="news-item">
+              <div class="news-date">2026-11-05</div>
+              <h3 class="news-title">《长安十二时辰·续》第 24 集上线，地下势力线收束</h3>
+              <p class="news-summary">本集完成主要支线收尾，后续将进入最终章。</p>
+            </div>
+            <div class="news-item">
+              <div class="news-date">2026-11-03</div>
+              <h3 class="news-title">《即兴喜剧大赛 第三季》第三期淘汰结果公布</h3>
+              <p class="news-summary">新赛制下两组选手离开，观众命题环节引发讨论。</p>
+            </div>
+            <div class="news-item">
+              <div class="news-date">2026-11-01</div>
+              <h3 class="news-title">《城市味觉》新纪录片上线，首集聚焦成都夜市</h3>
+              <p class="news-summary">每集 30 分钟，记录不同城市的饮食文化与市井生活。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. 相关推荐 -->
+        <section class="section" id="related">
+          <div class="section-header">
+            <h2 class="section-title">延伸方向</h2>
+          </div>
+          <div class="tag-cloud">
+            <a href="/#hot-picks">刑侦剧推荐</a>
+            <a href="/#hot-picks">声音设计解析</a>
+            <a href="/#hot-picks">北极生态纪录</a>
+            <a href="/#hot-picks">唐代官制考据</a>
+            <a href="/#hot-picks">硬科幻片单</a>
+            <a href="/#hot-picks">即兴喜剧入门</a>
+            <a href="/#hot-picks">城市美食纪录片</a>
+            <a href="/#hot-picks">心理惊悚片单</a>
+          </div>
+        </section>
+
+        <!-- 11. 补充板块：热门榜单 -->
+        <section class="section" id="ranking">
+          <div class="section-header">
+            <h2 class="section-title">本周热门榜单</h2>
+          </div>
+          <div class="rank-list">
+            <div class="rank-item"><span class="rank-num">1</span><span class="rank-name">长安十二时辰·续</span><span class="rank-score">热度 11,200</span></div>
+            <div class="rank-item"><span class="rank-num">2</span><span class="rank-name">迷雾档案</span><span class="rank-score">热度 9,872</span></div>
+            <div class="rank-item"><span class="rank-num">3</span><span class="rank-name">即兴喜剧大赛 第三季</span><span class="rank-score">热度 9,100</span></div>
+            <div class="rank-item"><span class="rank-num">4</span><span class="rank-name">暗夜回声</span><span class="rank-score">热度 8,540</span></div>
+            <div class="rank-item"><span class="rank-num">5</span><span class="rank-name">星环之外</span><span class="rank-score">热度 7,890</span></div>
+            <div class="rank-item"><span class="rank-num">6</span><span class="rank-name">极地追踪 第二季</span><span class="rank-score">热度 6,320</span></div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- 右侧辅助栏 -->
+      <aside class="right-sidebar">
+        <div class="side-block">
+          <h3>更新日历</h3>
+          <ul class="side-list">
+            <li><span class="side-title">迷雾档案</span><span class="side-meta">今天 10:00 第8集</span></li>
+            <li><span class="side-title">极地追踪 第二季</span><span class="side-meta">11月13日 第5集</span></li>
+            <li><span class="side-title">星环之外</span><span class="side-meta">11月11日 第7集</span></li>
+            <li><span class="side-title">即兴喜剧大赛</span><span class="side-meta">11月10日 第4期</span></li>
+            <li><span class="side-title">刑侦笔记 第二季</span><span class="side-meta">11月15日 首播</span></li>
+          </ul>
+        </div>
+        <div class="side-block">
+          <h3>高分条目</h3>
+          <ul class="side-list">
+            <li><span class="side-title">极地追踪 第二季</span><span class="side-meta">9.1 分 · 纪录片</span></li>
+            <li><span class="side-title">迷雾档案</span><span class="side-meta">8.7 分 · 悬疑</span></li>
+            <li><span class="side-title">长安十二时辰·续</span><span class="side-meta">8.5 分 · 古装</span></li>
+            <li><span class="side-title">暗夜回声</span><span class="side-meta">8.4 分 · 惊悚</span></li>
+            <li><span class="side-title">星环之外</span><span class="side-meta">8.2 分 · 科幻</span></li>
+          </ul>
+        </div>
+        <div class="side-block">
+          <h3>热门标签</h3>
+          <div class="tag-cloud" style="gap:8px;">
+            <a href="/#hot-picks" style="font-size:12px;padding:4px 12px;">刑侦</a>
+            <a href="/#hot-picks" style="font-size:12px;padding:4px 12px;">心理惊悚</a>
+            <a href="/#hot-picks" style="font-size:12px;padding:4px 12px;">自然纪录</a>
+            <a href="/#hot-picks" style="font-size:12px;padding:4px 12px;">古装</a>
+            <a href="/#hot-picks" style="font-size:12px;padding:4px 12px;">硬科幻</a>
+            <a href="/#hot-picks" style="font-size:12px;padding:4px 12px;">即兴喜剧</a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand-text">蓝莓视频</div>
+        <p>聚合电影、剧集、纪录片与综艺的影视内容平台，提供热播榜、分类筛选与深度解析。</p>
+      </div>
+      <div class="footer-col">
+        <h4>内容频道</h4>
+        <a href="/#hot-picks">电影精选</a>
+        <a href="/#hot-picks">剧集热播</a>
+        <a href="/#hot-picks">纪录片</a>
+        <a href="/#hot-picks">综艺节目</a>
+      </div>
+      <div class="footer-col">
+        <h4>分类浏览</h4>
+        <a href="/#categories">悬疑推理</a>
+        <a href="/#categories">古装历史</a>
+        <a href="/#categories">科幻未来</a>
+        <a href="/#categories">自然探索</a>
+      </div>
+      <div class="footer-col">
+        <h4>帮助与反馈</h4>
+        <a href="/#faq">常见问题</a>
+        <a href="/#guide">观影指南</a>
+        <a href="/#comments">用户评论</a>
+        <a href="/#news">相关资讯</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 蓝莓视频 · 内容聚合示例</span>
+      <span>部分内容为示例数据，仅用于展示页面结构</span>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      // 轻量交互：公告条与页头吸顶已由 CSS fixed 实现，无需额外脚本。
+      // 搜索框为占位按钮，不实现完整搜索逻辑，保持核心内容可读。
+      // 所有锚点链接均指向存在的栏目 id。
+    })();
+  </script>
+</body>
+  </html>

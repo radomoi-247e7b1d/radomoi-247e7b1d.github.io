@@ -1,0 +1,1614 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>老司机漫画 - 成人向漫画聚合导航</title>
+  <meta name="description" content="老司机漫画汇集成人向漫画的类别导航、精选条目与更新动态，涵盖悬疑、都市、奇幻、恋爱等方向，适合偏好成熟叙事与画面表现的漫画读者浏览挑选。">
+  <meta name="keywords" content="成人漫画导航, 成熟向漫画推荐, 悬疑漫画更新, 都市情感漫画, 奇幻冒险漫画">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a1e2c'/%3E%3Cpath d='M30 70 L50 30 L70 70 Z' fill='%23e8a33d'/%3E%3Ccircle cx='50' cy='58' r='8' fill='%23f5e6d3'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #12141c;
+      --bg-panel: #1a1e2c;
+      --bg-elevated: #222738;
+      --border: #2e3448;
+      --text: #e7e9f0;
+      --text-secondary: #a0a6bb;
+      --text-muted: #6b7189;
+      --accent: #e8a33d;
+      --accent-soft: #f0c87a;
+      --accent-dim: rgba(232, 163, 61, 0.15);
+      --teal: #4db6ac;
+      --rose: #d98b8b;
+      --font-sans: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+      --font-serif: 'Noto Serif SC', 'Songti SC', Georgia, serif;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.35);
+      --sticky-offset: 108px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: var(--sticky-offset); }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-soft); text-decoration: none; }
+    a:hover { color: var(--accent); }
+
+    img { display: block; max-width: 100%; height: auto; object-fit: cover; }
+
+    .container {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---- 吸顶公告条 + 页头 ---- */
+    .sticky-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .announce-bar {
+      background: var(--accent);
+      color: #1a1e2c;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 0;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+    .announce-bar span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .announce-bar .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #1a1e2c;
+      flex-shrink: 0;
+    }
+
+    .site-header {
+      background: rgba(18, 20, 28, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .brand svg { width: 34px; height: 34px; }
+    .brand-text {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .main-nav {
+      display: flex;
+      gap: 2px;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+    .main-nav a {
+      color: var(--text-secondary);
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .main-nav a:hover, .main-nav a:focus-visible {
+      background: var(--bg-elevated);
+      color: var(--text);
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 4px 4px 14px;
+      flex-shrink: 0;
+    }
+    .search-box input {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 13px;
+      width: 150px;
+      outline: none;
+      font-family: inherit;
+    }
+    .search-box input::placeholder { color: var(--text-muted); }
+    .search-box button {
+      background: var(--accent);
+      color: #12141c;
+      border: none;
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .search-box button:hover { background: var(--accent-soft); }
+
+    /* ---- 主题首屏 ---- */
+    .hero {
+      padding: 56px 0 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -80px;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(232,163,61,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-family: var(--font-serif);
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+    .hero-text h1 .hl {
+      color: var(--accent);
+    }
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      max-width: 520px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #1a1e2c;
+    }
+    .btn-primary:hover { background: var(--accent-soft); color: #1a1e2c; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--bg-elevated); border-color: var(--text-muted); }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-visual svg { width: 100%; max-width: 420px; height: auto; }
+
+    /* ---- 主内容三栏布局 ---- */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 180px 1fr 250px;
+      gap: 32px;
+      padding: 16px 0 60px;
+    }
+
+    /* 左频道索引 */
+    .channel-sidebar {
+      position: sticky;
+      top: var(--sticky-offset);
+      align-self: start;
+    }
+    .channel-sidebar h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .channel-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .channel-list a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 14px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .channel-list a:hover, .channel-list a:focus-visible {
+      background: var(--bg-elevated);
+      color: var(--accent-soft);
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+    .channel-list .ch-icon {
+      width: 26px; height: 26px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    /* 中间主内容 */
+    .content-main { min-width: 0; }
+
+    .section {
+      margin-bottom: 48px;
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .section-head h2 {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+    .section-head .sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .section-head .line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      min-width: 20px;
+    }
+
+    /* 概览 */
+    .overview-text {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .overview-text p { margin-bottom: 14px; }
+    .overview-text strong { color: var(--accent-soft); font-weight: 600; }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .comic-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .comic-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-dim);
+      box-shadow: var(--shadow);
+    }
+    .comic-card .card-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--bg-elevated);
+    }
+    .comic-card .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .comic-card:hover .card-img img { transform: scale(1.04); }
+    .card-body {
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .card-body h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .tag.accent { background: var(--accent-dim); color: var(--accent-soft); }
+    .tag.teal { background: rgba(77,182,172,0.12); color: var(--teal); }
+    .tag.rose { background: rgba(217,139,139,0.12); color: var(--rose); }
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      padding-top: 6px;
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+    .card-meta .heat { color: var(--accent-soft); }
+
+    /* 最新更新列表 */
+    .update-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .update-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+    .update-list li:last-child { border-bottom: none; }
+    .update-list .u-name {
+      font-weight: 600;
+      color: var(--text);
+      min-width: 140px;
+      flex-shrink: 0;
+    }
+    .update-list .u-name a { color: var(--text); }
+    .update-list .u-name a:hover { color: var(--accent); }
+    .update-list .u-note {
+      color: var(--text-secondary);
+      font-size: 13px;
+      flex: 1;
+    }
+    .update-list .u-time {
+      color: var(--text-muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* 分类入口 */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .cat-item {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      text-align: center;
+      transition: background 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .cat-item:hover {
+      background: var(--bg-elevated);
+      border-color: var(--accent-dim);
+    }
+    .cat-item .cat-icon { font-size: 22px; line-height: 1; }
+    .cat-item .cat-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .cat-item .cat-count {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* 深度解析 */
+    .deep-dive {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 30px;
+    }
+    .deep-dive h3 {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--accent-soft);
+      margin: 24px 0 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .deep-dive h3:first-of-type { margin-top: 0; }
+    .deep-dive p {
+      color: var(--text-secondary);
+      font-size: 14.5px;
+      line-height: 1.9;
+      margin-bottom: 12px;
+    }
+    .deep-dive ul {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.9;
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+    .deep-dive ul li { margin-bottom: 4px; }
+    .deep-dive ul li strong { color: var(--text); }
+
+    /* 体验指南步骤 */
+    .guide-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .step-item {
+      display: flex;
+      gap: 16px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+    .step-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-content h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .step-content p {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+    .faq-list details {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .faq-list details[open] { border-color: var(--accent-dim); }
+    .faq-list summary {
+      padding: 14px 18px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.2s;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after {
+      content: '+';
+      font-size: 18px;
+      color: var(--text-muted);
+      font-weight: 400;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .faq-list details[open] summary::after {
+      content: '−';
+      color: var(--accent);
+    }
+    .faq-list summary:hover { background: var(--bg-elevated); }
+    .faq-answer {
+      padding: 0 18px 16px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* 评论 */
+    .comment-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .comment-item {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+    .comment-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .comment-user {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-soft);
+    }
+    .comment-target {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg-elevated);
+      padding: 1px 8px;
+      border-radius: 8px;
+    }
+    .comment-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* 相关资讯 */
+    .news-list { display: flex; flex-direction: column; gap: 0; }
+    .news-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-thumb {
+      width: 100px;
+      height: 70px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--bg-elevated);
+    }
+    .news-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .news-body h3 {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .news-body h3 a { color: var(--text); }
+    .news-body h3 a:hover { color: var(--accent); }
+    .news-body p {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .news-date {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* 相关推荐标签 */
+    .rec-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .rec-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .rec-tag:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent-dim);
+      color: var(--accent-soft);
+    }
+
+    /* 热榜 */
+    .rank-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .rank-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .rank-list li:last-child { border-bottom: none; }
+    .rank-num {
+      width: 22px;
+      font-weight: 800;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-muted);
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .rank-list li:nth-child(1) .rank-num { color: var(--accent); }
+    .rank-list li:nth-child(2) .rank-num { color: var(--accent-soft); }
+    .rank-list li:nth-child(3) .rank-num { color: var(--rose); }
+    .rank-name { flex: 1; font-weight: 500; color: var(--text); }
+    .rank-heat { font-size: 12px; color: var(--text-muted); }
+
+    /* 右侧辅助栏 */
+    .right-sidebar {
+      position: sticky;
+      top: var(--sticky-offset);
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .side-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 16px;
+    }
+    .side-panel h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.5px;
+    }
+    .side-panel .rank-list .rank-name { font-size: 13px; }
+
+    /* 页尾 */
+    .site-footer {
+      background: var(--bg-panel);
+      border-top: 1px solid var(--border);
+      padding: 40px 0 24px;
+      margin-top: 20px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+    .footer-brand .brand-text { font-size: 20px; margin-bottom: 8px; }
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .footer-col ul a {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .footer-col ul a:hover { color: var(--accent-soft); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* 搜索无结果反馈 */
+    .no-result {
+      display: none;
+      padding: 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      background: var(--bg-panel);
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--border);
+      margin-bottom: 16px;
+    }
+    .no-result.show { display: block; }
+
+    /* 响应式 */
+    @media (max-width: 1024px) {
+      .main-layout {
+        grid-template-columns: 1fr 260px;
+      }
+      .channel-sidebar {
+        display: none;
+      }
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .hero-visual { display: none; }
+      .comment-list { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .cat-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    @media (max-width: 740px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+      .right-sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .hero-text h1 { font-size: 30px; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .header-inner { gap: 14px; }
+      .main-nav { order: 3; width: 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+      .search-box { margin-left: auto; }
+      .search-box input { width: 100px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .update-list li { flex-direction: column; gap: 2px; }
+      .news-item { flex-direction: column; }
+      .news-thumb { width: 100%; height: 140px; }
+      .deep-dive { padding: 20px 18px; }
+      .comment-list { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .right-sidebar { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .hero-text h1 { font-size: 26px; }
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶区域 -->
+  <div class="sticky-wrap">
+    <div class="announce-bar">
+      <span><span class="dot"></span>本周新增 9 部连载更新 · 《夜行档案》第 12 话已解锁 · 秋季悬疑专题上线</span>
+    </div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/#top" class="brand" aria-label="老司机漫画 首页">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <rect width="100" height="100" rx="20" fill="#1a1e2c"/>
+            <path d="M28 72 L50 26 L72 72 Z" fill="#e8a33d"/>
+            <circle cx="50" cy="58" r="9" fill="#12141c"/>
+            <circle cx="50" cy="58" r="4" fill="#f5e6d3"/>
+            <rect x="30" y="80" width="40" height="4" rx="2" fill="#4db6ac"/>
+          </svg>
+          <span class="brand-text">老司机漫画</span>
+        </a>
+        <nav class="main-nav" aria-label="主题导航">
+          <a href="/#overview">领域概览</a>
+          <a href="/#featured">精选推荐</a>
+          <a href="/#updates">最新更新</a>
+          <a href="/#categories">分类频道</a>
+          <a href="/#deep-dive">深度解析</a>
+          <a href="/#guide">阅读指南</a>
+          <a href="/#faq">常见问答</a>
+          <a href="/#comments">读者评论</a>
+          <a href="/#news">相关资讯</a>
+          <a href="/#rank">热榜</a>
+        </nav>
+        <div class="search-box">
+          <input type="search" id="searchInput" placeholder="搜索漫画名或类型…" aria-label="搜索漫画名或类型">
+          <button type="button" id="searchBtn" aria-label="执行搜索">搜索</button>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- 首屏 -->
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1>老司机漫画</h1>
+        <p class="hero-desc">汇聚成人向漫画的类别导航、精选条目与更新动态，覆盖悬疑、都市、奇幻、恋爱、犯罪、科幻等方向。从连载新话到完结佳作，按阅读口味和叙事节奏逐层筛选，为偏好成熟题材的读者提供清晰的挑选路径。</p>
+        <div class="hero-actions">
+          <a href="/#featured" class="btn-primary">浏览精选条目</a>
+          <a href="/#updates" class="btn-secondary">查看本日更新</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg viewBox="0 0 400 320" role="img" aria-label="成人向漫画页面风格插画">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#222738"/>
+              <stop offset="100%" stop-color="#1a1e2c"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#e8a33d" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#d98b8b" stop-opacity="0.6"/>
+            </linearGradient>
+          </defs>
+          <rect x="20" y="20" width="360" height="280" rx="16" fill="url(#g1)" stroke="#2e3448" stroke-width="1.5"/>
+          <!-- 漫画格 -->
+          <rect x="44" y="44" width="150" height="110" rx="6" fill="#12141c" stroke="#2e3448" stroke-width="1"/>
+          <line x1="66" y1="70" x2="172" y2="70" stroke="#4db6ac" stroke-width="3" stroke-linecap="round"/>
+          <line x1="66" y1="88" x2="152" y2="88" stroke="#a0a6bb" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+          <line x1="66" y1="104" x2="160" y2="104" stroke="#a0a6bb" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>
+          <circle cx="170" cy="128" r="12" fill="#e8a33d" opacity="0.2"/>
+          <path d="M166 124 L174 132 M174 124 L166 132" stroke="#e8a33d" stroke-width="2" stroke-linecap="round"/>
+
+          <rect x="208" y="44" width="152" height="110" rx="6" fill="#12141c" stroke="#2e3448" stroke-width="1"/>
+          <line x1="228" y1="70" x2="340" y2="70" stroke="#d98b8b" stroke-width="3" stroke-linecap="round"/>
+          <line x1="228" y1="88" x2="316" y2="88" stroke="#a0a6bb" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+          <line x1="228" y1="104" x2="330" y2="104" stroke="#a0a6bb" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>
+
+          <rect x="44" y="168" width="316" height="108" rx="6" fill="#12141c" stroke="#2e3448" stroke-width="1"/>
+          <line x1="66" y1="194" x2="280" y2="194" stroke="#e8a33d" stroke-width="3" stroke-linecap="round"/>
+          <line x1="66" y1="214" x2="240" y2="214" stroke="#a0a6bb" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+          <line x1="66" y1="232" x2="260" y2="232" stroke="#a0a6bb" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>
+          <line x1="66" y1="250" x2="180" y2="250" stroke="#4db6ac" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          <!-- 装饰 -->
+          <rect x="300" y="180" width="44" height="44" rx="8" fill="url(#g2)" opacity="0.25"/>
+          <path d="M312 202 L322 192 L332 202 L322 212 Z" fill="#e8a33d" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主内容三栏 -->
+  <div class="container main-layout">
+
+    <!-- 左频道索引 -->
+    <aside class="channel-sidebar" aria-label="频道索引">
+      <h2>频道分类</h2>
+      <ul class="channel-list">
+        <li><a href="/#categories"><span class="ch-icon">🔍</span>悬疑推理</a></li>
+        <li><a href="/#categories"><span class="ch-icon">🌃</span>都市情感</a></li>
+        <li><a href="/#categories"><span class="ch-icon">🐉</span>奇幻冒险</a></li>
+        <li><a href="/#categories"><span class="ch-icon">💕</span>恋爱日常</a></li>
+        <li><a href="/#categories"><span class="ch-icon">🔫</span>犯罪黑帮</a></li>
+        <li><a href="/#categories"><span class="ch-icon">🚀</span>科幻末世</a></li>
+        <li><a href="/#categories"><span class="ch-icon">👻</span>恐怖灵异</a></li>
+        <li><a href="/#categories"><span class="ch-icon">🎭</span>历史古风</a></li>
+      </ul>
+    </aside>
+
+    <!-- 中间主内容 -->
+    <main class="content-main">
+
+      <!-- 1. 领域概览 -->
+      <section class="section" id="overview">
+        <div class="section-head">
+          <h2>成人向漫画领域概览</h2>
+          <span class="line"></span>
+        </div>
+        <div class="overview-text">
+          <p><strong>老司机漫画</strong>所指的领域，通常以成熟叙事、复杂人物关系与不受低龄约束的画面表现为特征。与少年向作品相比，这类漫画更倾向于在悬疑、犯罪、都市情感、奇幻冒险等方向上展开深度刻画，节奏偏慢热，信息密度更高，对读者的类型偏好和接受度有一定要求。</p>
+          <p>从当前连载生态看，悬疑推理是产出台数最稳定的方向，代表条目如《夜行档案》《第七号证词》均以单元案件推进主线；都市情感方向则偏向关系博弈与生活质感，如《午夜便利店》《她住在旧公寓》，常以细腻对白和场景氛围取胜。奇幻冒险类在构建世界观上投入较大，《雾海旅人》《龙骨编年史》分别以航海史诗与大陆战争为背景，适合喜欢长线阅读的读者。</p>
+          <p>近期值得关注的具体内容还包括：犯罪黑帮方向的《灰色地带》已进入第二季高潮章，科幻末世的《废土信使》刚完结第一卷，恐怖灵异类《凌晨四点的电话》以短篇合集形式更新，适合碎片时间阅读。不同方向在更新频率、单话篇幅和阅读门槛上差异明显，选择时可根据自己偏好的叙事节奏和题材尺度做初步筛选。</p>
+        </div>
+      </section>
+
+      <!-- 2. 精选内容推荐 -->
+      <section class="section" id="featured">
+        <div class="section-head">
+          <h2>精选内容推荐</h2>
+          <span class="sub">按类型与口碑筛选</span>
+          <span class="line"></span>
+        </div>
+        <div class="card-grid" id="featuredGrid">
+          <article class="comic-card" data-title="夜行档案 悬疑推理">
+            <div class="card-img">
+              <img src="https://picsum.photos/seed/yexing-dangan47/400/300" alt="夜行档案悬疑漫画封面" width="400" height="300" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3>夜行档案</h3>
+              <div class="card-tags">
+                <span class="tag accent">悬疑推理</span>
+                <span class="tag">单元案件</span>
+                <span class="tag">心理侧写</span>
+              </div>
+              <p class="card-desc">以档案管理员视角重组未解悬案，每话独立成篇又暗藏主线伏笔，适合喜欢慢节奏推理的读者。</p>
+              <div class="card-meta">
+                <span>更新至第 12 话</span>
+                <span class="heat">★ 9.2</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="comic-card" data-title="午夜便利店 都市情感">
+            <div class="card-img">
+              <img src="https://picsum.photos/seed/wuye-bianlidian33/400/300" alt="午夜便利店都市情感漫画封面" width="400" height="300" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3>午夜便利店</h3>
+              <div class="card-tags">
+                <span class="tag teal">都市情感</span>
+                <span class="tag">夜班群像</span>
+                <span class="tag">生活流</span>
+              </div>
+              <p class="card-desc">深夜便利店串联起不同客人的短篇故事，对白扎实，场景氛围浓郁，适合睡前轻阅读。</p>
+              <div class="card-meta">
+                <span>更新至第 28 话</span>
+                <span class="heat">★ 8.8</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="comic-card" data-title="雾海旅人 奇幻冒险">
+            <div class="card-img">
+              <img src="https://picsum.photos/seed/wuhai-lvren12/400/300" alt="雾海旅人奇幻冒险漫画封面" width="400" height="300" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3>雾海旅人</h3>
+              <div class="card-tags">
+                <span class="tag accent">奇幻冒险</span>
+                <span class="tag">航海史诗</span>
+                <span class="tag">世界观</span>
+              </div>
+              <p class="card-desc">被浓雾封锁的海域上，商船与海盗围绕古代航线展开争夺，画面分镜极具电影感。</p>
+              <div class="card-meta">
+                <span>连载中 · 第 45 话</span>
+                <span class="heat">★ 9.0</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="comic-card" data-title="灰色地带 犯罪黑帮">
+            <div class="card-img">
+              <img src="https://picsum.photos/seed/huise-didai08/400/300" alt="灰色地带犯罪黑帮漫画封面" width="400" height="300" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3>灰色地带</h3>
+              <div class="card-tags">
+                <span class="tag rose">犯罪黑帮</span>
+                <span class="tag">权力博弈</span>
+                <span class="tag">双线叙事</span>
+              </div>
+              <p class="card-desc">警方与地下势力之间的情报交易网，第二季进入收网阶段，人物立场频繁反转。</p>
+              <div class="card-meta">
+                <span>第二季 第 9 话</span>
+                <span class="heat">★ 8.9</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="comic-card" data-title="废土信使 科幻末世">
+            <div class="card-img">
+              <img src="https://picsum.photos/seed/feitu-xinshi21/400/300" alt="废土信使科幻末世漫画封面" width="400" height="300" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3>废土信使</h3>
+              <div class="card-tags">
+                <span class="tag accent">科幻末世</span>
+                <span class="tag">公路冒险</span>
+                <span class="tag">废土美学</span>
+              </div>
+              <p class="card-desc">灾变后负责跨聚落送信的信使，在辐射带与匪帮之间穿行，第一卷已完结可一口气读完。</p>
+              <div class="card-meta">
+                <span>第一卷完结</span>
+                <span class="heat">★ 8.6</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="comic-card" data-title="凌晨四点的电话 恐怖灵异">
+            <div class="card-img">
+              <img src="https://picsum.photos/seed/lingchen-dianhua55/400/300" alt="凌晨四点的电话恐怖灵异漫画封面" width="400" height="300" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3>凌晨四点的电话</h3>
+              <div class="card-tags">
+                <span class="tag teal">恐怖灵异</span>
+                <span class="tag">短篇合集</span>
+                <span class="tag">都市怪谈</span>
+              </div>
+              <p class="card-desc">每话一个独立都市怪谈，围绕深夜来电展开，篇幅精悍，反转集中在最后两页。</p>
+              <div class="card-meta">
+                <span>更新至第 16 话</span>
+                <span class="heat">★ 8.4</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="comic-card" data-title="她住在旧公寓 都市情感">
+            <div class="card-img">
+              <img src="https://picsum.photos/seed/ta-zhu-jiugongyu19/400/300" alt="她住在旧公寓都市情感漫画封面" width="400" height="300" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3>她住在旧公寓</h3>
+              <div class="card-tags">
+                <span class="tag teal">都市情感</span>
+                <span class="tag">关系博弈</span>
+                <span class="tag">细腻对白</span>
+              </div>
+              <p class="card-desc">一栋老式公寓里，几户租客的生活因一桩旧事被重新搅动，叙事克制，情绪后劲足。</p>
+              <div class="card-meta">
+                <span>更新至第 22 话</span>
+                <span class="heat">★ 8.7</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="comic-card" data-title="龙骨编年史 历史古风">
+            <div class="card-img">
+              <img src="https://picsum.photos/seed/longgu-biannianshi06/400/300" alt="龙骨编年史历史古风漫画封面" width="400" height="300" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3>龙骨编年史</h3>
+              <div class="card-tags">
+                <span class="tag accent">历史古风</span>
+                <span class="tag">大陆战争</span>
+                <span class="tag">群像</span>
+              </div>
+              <p class="card-desc">以龙骨传说为引线的架空大陆战争群像，登场势力众多，适合喜欢宏大叙事的读者。</p>
+              <div class="card-meta">
+                <span>连载中 · 第 33 话</span>
+                <span class="heat">★ 8.5</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="no-result" id="noResult">没有匹配的漫画，试试“悬疑”“都市”或具体作品名。</div>
+      </section>
+
+      <!-- 3. 最新更新动态 -->
+      <section class="section" id="updates">
+        <div class="section-head">
+          <h2>最新更新与连载动态</h2>
+          <span class="sub">截至 2026-11-08</span>
+          <span class="line"></span>
+        </div>
+        <ul class="update-list">
+          <li><span class="u-name"><a href="/#featured">夜行档案</a></span><span class="u-note">第 12 话「雨季档案」已解锁，档案管理员的身世线索浮出水面</span><span class="u-time">今天 09:30</span></li>
+          <li><span class="u-name"><a href="/#featured">灰色地带</a></span><span class="u-note">第二季第 9 话更新，警方线人身份暴露，收网行动提前</span><span class="u-time">今天 08:10</span></li>
+          <li><span class="u-name"><a href="/#featured">雾海旅人</a></span><span class="u-note">第 45 话发布，古代航线终点首次出现明确坐标</span><span class="u-time">昨天 21:40</span></li>
+          <li><span class="u-name"><a href="/#featured">她住在旧公寓</a></span><span class="u-note">第 22 话上线，三号房租客的旧事与主线正式交汇</span><span class="u-time">昨天 19:15</span></li>
+          <li><span class="u-name"><a href="/#featured">午夜便利店</a></span><span class="u-note">第 28 话更新，夜班店员与常客的跨年夜短篇</span><span class="u-time">11 月 7 日</span></li>
+          <li><span class="u-name"><a href="/#featured">凌晨四点的电话</a></span><span class="u-note">第 16 话「回拨」上线，短篇合集新增都市怪谈一则</span><span class="u-time">11 月 6 日</span></li>
+          <li><span class="u-name"><a href="/#featured">龙骨编年史</a></span><span class="u-note">第 33 话发布，北境盟约破裂，战争线进入新阶段</span><span class="u-time">11 月 5 日</span></li>
+          <li><span class="u-name"><a href="/#featured">废土信使</a></span><span class="u-note">第一卷完结纪念番外发布，补充信使早期路线设定</span><span class="u-time">11 月 4 日</span></li>
+          <li><span class="u-name"><a href="/#featured">第七号证词</a></span><span class="u-note">第 7 话更新，法庭推理线新增关键证人</span><span class="u-time">11 月 3 日</span></li>
+          <li><span class="u-name"><a href="/#featured">深巷食堂</a></span><span class="u-note">第 19 话上线，都市美食单元新增深夜拉面篇</span><span class="u-time">11 月 2 日</span></li>
+        </ul>
+      </section>
+
+      <!-- 4. 分类入口 -->
+      <section class="section" id="categories">
+        <div class="section-head">
+          <h2>按类型浏览</h2>
+          <span class="line"></span>
+        </div>
+        <div class="cat-grid">
+          <a href="/#featured" class="cat-item">
+            <span class="cat-icon">🔍</span>
+            <span class="cat-name">悬疑推理</span>
+            <span class="cat-count">42 部</span>
+          </a>
+          <a href="/#featured" class="cat-item">
+            <span class="cat-icon">🌃</span>
+            <span class="cat-name">都市情感</span>
+            <span class="cat-count">36 部</span>
+          </a>
+          <a href="/#featured" class="cat-item">
+            <span class="cat-icon">🐉</span>
+            <span class="cat-name">奇幻冒险</span>
+            <span class="cat-count">28 部</span>
+          </a>
+          <a href="/#featured" class="cat-item">
+            <span class="cat-icon">💕</span>
+            <span class="cat-name">恋爱日常</span>
+            <span class="cat-count">31 部</span>
+          </a>
+          <a href="/#featured" class="cat-item">
+            <span class="cat-icon">🔫</span>
+            <span class="cat-name">犯罪黑帮</span>
+            <span class="cat-count">19 部</span>
+          </a>
+          <a href="/#featured" class="cat-item">
+            <span class="cat-icon">🚀</span>
+            <span class="cat-name">科幻末世</span>
+            <span class="cat-count">24 部</span>
+          </a>
+          <a href="/#featured" class="cat-item">
+            <span class="cat-icon">👻</span>
+            <span class="cat-name">恐怖灵异</span>
+            <span class="cat-count">17 部</span>
+          </a>
+          <a href="/#featured" class="cat-item">
+            <span class="cat-icon">🎭</span>
+            <span class="cat-name">历史古风</span>
+            <span class="cat-count">22 部</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- 5. 深度解析 -->
+      <section class="section" id="deep-dive">
+        <div class="section-head">
+          <h2>深度解析：类型差异与阅读选择</h2>
+          <span class="line"></span>
+        </div>
+        <div class="deep-dive">
+          <h3>悬疑推理与犯罪黑帮的叙事侧重区别</h3>
+          <p>悬疑推理类通常以“谜题—调查—揭示”为基本结构，单话或单元内需要给出阶段性解答，读者获得的满足感来自信息差被逐层抹平。《夜行档案》采用档案管理员视角，每话围绕一份未解档案展开，主线则通过管理员的个人记忆碎片缓慢推进，属于典型的单元剧包裹长线伏笔。</p>
+          <p>犯罪黑帮方向更侧重权力关系与立场博弈，谜题本身不是核心，人物在压力下的选择才是。《灰色地带》第二季把警方线人与地下势力之间的情报交易作为主轴，每话结尾往往停在立场即将反转的瞬间，阅读体验更偏向持续紧张而非阶段性解谜。两者在阅读节奏上一个偏“收束”，一个偏“延宕”，选择时可根据自己更适应哪种节奏。</p>
+
+          <h3>都市情感类目的判断维度</h3>
+          <p>都市情感漫画的质量差异往往不体现在情节强弱上，而在对白密度与场景可信度。《午夜便利店》以深夜便利店为固定场景，每话由一两位客人的故事构成，对白生活化，场景细节如货架陈列、收银台动线都经过设计，读起来有明确的场所感。《她住在旧公寓》则把重心放在几户租客的关系网与旧事重提后的连锁反应，叙事更克制，情绪释放点更靠后。</p>
+          <ul>
+            <li><strong>对白自然度：</strong>人物说话是否符合身份与情境，而非单纯推进情节。</li>
+            <li><strong>场景功能：</strong>固定场景是否被持续利用，而非只做背景板。</li>
+            <li><strong>关系可信度：</strong>人物关系的变化是否有足够铺垫，而非突然转折。</li>
+          </ul>
+
+          <h3>奇幻冒险与科幻末世的设定门槛</h3>
+          <p>奇幻冒险类对世界观完整度要求较高，《雾海旅人》用大量篇幅建立海域势力、航线规则与古代文明遗迹之间的关联，前期信息密度大，读者需要一定耐心。科幻末世方向如《废土信使》则把设定拆散在公路冒险的推进中，每到一个聚落才释放一部分背景，阅读门槛相对平缓。两者都适合长线阅读，但前者更适合愿意主动梳理设定的读者，后者更适合跟随主角视角逐步发现世界的读者。</p>
+
+          <h3>短篇合集与长篇连载的消费策略</h3>
+          <p>短篇合集如《凌晨四点的电话》每话独立，适合碎片时间阅读，单话完成度高，但主线推进感弱。长篇连载如《龙骨编年史》需要持续追更，信息量大，断更后重新衔接成本较高。选择时可以先从短篇合集测试自己对某一类型的接受度，再决定是否进入长篇连载的追更节奏。</p>
+        </div>
+      </section>
+
+      <!-- 6. 体验指南 -->
+      <section class="section" id="guide">
+        <div class="section-head">
+          <h2>阅读路径与选择指南</h2>
+          <span class="line"></span>
+        </div>
+        <div class="guide-steps">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h3>先按类型圈定范围</h3>
+              <p>如果偏好解谜与信息收束，从悬疑推理类入手，如《夜行档案》《第七号证词》；如果更看重人物关系与生活质感，都市情感类的《午夜便利店》《她住在旧公寓》更合适。类型偏好明确后，再进入具体条目比较，效率更高。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h3>用单话或短篇测试接受度</h3>
+              <p>长篇连载前期往往需要铺垫设定，直接判断容易误判。可以先读短篇合集《凌晨四点的电话》中的任意一话，或长篇的第一话，观察自己对画面尺度、对白密度和叙事节奏的适应程度，再决定是否深入。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h3>比较同类型条目的更新节奏</h3>
+              <p>同样属于悬疑推理，《夜行档案》以单元案件推进，适合定期追更；《第七号证词》法庭线信息密集，适合攒几话后连续阅读。更新节奏与个人阅读习惯是否匹配，直接影响追更体验。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h3>关注完结状态与卷数结构</h3>
+              <p>《废土信使》第一卷已完结，适合希望一口气读完一个完整弧线的读者；《雾海旅人》仍在连载且世界观庞大，适合愿意长期跟随的读者。卷数结构与完结状态是投入时间前值得确认的信息。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="section" id="faq">
+        <div class="section-head">
+          <h2>常见问题</h2>
+          <span class="line"></span>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>悬疑推理类漫画一般多久更新一次？</summary>
+            <div class="faq-answer">不同作品的更新周期差异明显。《夜行档案》目前保持每周一话的节奏，《第七号证词》为双周更。单元案件型作品通常单话完成度较高，断更一两周对阅读连贯性影响较小；主线推进型作品则建议攒几话后连续阅读，避免因等待削弱悬念感。</div>
+          </details>
+          <details>
+            <summary>《夜行档案》和《第七号证词》有什么区别？</summary>
+            <div class="faq-answer">两者同属悬疑推理，但叙事结构不同。《夜行档案》以档案管理员为固定视角，每话独立案件，主线藏在管理员的记忆碎片中；《第七号证词》采用法庭推理框架，围绕证人证词与证据链展开，单话内信息密度更高，阅读时需要更集中注意力。</div>
+          </details>
+          <details>
+            <summary>第一次接触成人向漫画，从哪部开始看比较好？</summary>
+            <div class="faq-answer">如果对尺度与节奏不确定，可以先从短篇合集《凌晨四点的电话》中挑一话试读，每话独立且篇幅较短，便于判断自己对画面与叙事的接受度。都市情感类的《午夜便利店》也是较温和的入门选择，对白生活化，场景亲切，阅读门槛较低。</div>
+          </details>
+          <details>
+            <summary>都市情感类漫画的评判标准通常是什么？</summary>
+            <div class="faq-answer">主要看对白是否自然、场景是否被持续利用、人物关系变化是否有铺垫。以《她住在旧公寓》为例，几户租客的关系网在旧事重提后逐步松动，转折前有足够细节支撑；《午夜便利店》则通过对固定场景的反复使用，让不同客人的故事产生场所上的连贯感。</div>
+          </details>
+          <details>
+            <summary>《雾海旅人》世界观复杂，需要提前做功课吗？</summary>
+            <div class="faq-answer">不需要提前查阅设定资料。作品前几话会通过角色对话逐步交代海域势力与航线规则，建议按顺序阅读，遇到不明确的势力关系可以暂不深究，跟随主线继续读下去，多数设定会在后续章节中自然补齐。如果中途断更较久，可以回看前两话梳理人物关系。</div>
+          </details>
+          <details>
+            <summary>短篇合集和长篇连载在阅读体验上有什么不同？</summary>
+            <div class="faq-answer">短篇合集如《凌晨四点的电话》每话独立成篇，单话完成度高，适合碎片时间阅读，但主线推进感较弱，长期追更的动力主要来自单篇创意。长篇连载如《龙骨编年史》信息量大、人物多，需要持续跟随，断更后重新衔接的成本较高，但完整弧线的满足感也更强。</div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 8. 用户评论 -->
+      <section class="section" id="comments">
+        <div class="section-head">
+          <h2>读者评论</h2>
+          <span class="line"></span>
+        </div>
+        <div class="comment-list">
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">夜航船</span><span class="comment-target">夜行档案</span></div>
+            <p class="comment-text">第 12 话信息量很大，管理员回忆里的细节和前几话的档案编号对上了，回头翻了一遍才发现伏笔埋得很早。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">旧公寓租客</span><span class="comment-target">她住在旧公寓</span></div>
+            <p class="comment-text">对白写得很克制，三号房租客的旧事揭晓那话没有刻意煽情，但读完之后情绪一直压着，这种处理方式很对胃口。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">雾海领航员</span><span class="comment-target">雾海旅人</span></div>
+            <p class="comment-text">第 45 话终于把古代航线的坐标给出来了，之前几话的势力谈判铺垫现在看都是必要的，追更体验很稳。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">便利店常客</span><span class="comment-target">午夜便利店</span></div>
+            <p class="comment-text">每话一个客人的故事，看多了会有点模式化的感觉，但场景细节一直在线，深夜读起来氛围感很强。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">收网行动中</span><span class="comment-target">灰色地带</span></div>
+            <p class="comment-text">第二季的立场反转比第一季更密集，第 9 话线人暴露那段处理得干净利落，没有拖泥带水。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">废土邮差</span><span class="comment-target">废土信使</span></div>
+            <p class="comment-text">第一卷完结后一口气补完了，公路冒险的结构很清晰，每个聚落一段故事，世界观释放的节奏刚刚好。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">凌晨四点醒来</span><span class="comment-target">凌晨四点的电话</span></div>
+            <p class="comment-text">短篇合集里「回拨」那话的反转比较常规，但前一篇「空号」的氛围营造很到位，两话质量有起伏。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">龙骨读者</span><span class="comment-target">龙骨编年史</span></div>
+            <p class="comment-text">势力太多，前期差点放弃，坚持到第 20 话之后人物关系理顺了，北境盟约破裂那段群像写得很有分量。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">证词旁听席</span><span class="comment-target">第七号证词</span></div>
+            <p class="comment-text">法庭线的推理比较扎实，但双周更等得有点久，建议攒三话再看，单话断在关键证词上很难受。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">深巷食客</span><span class="comment-target">深巷食堂</span></div>
+            <p class="comment-text">美食单元里拉面那篇印象最深，对汤头和煮面过程的画面表现很细致，比较适合喜欢生活流的人。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">悬疑收集者</span><span class="comment-target">夜行档案 / 第七号证词</span></div>
+            <p class="comment-text">两部悬疑都追了，更喜欢夜行档案的单元结构，第七号证词信息太密，读的时候需要专门腾出时间。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">夜班编辑</span><span class="comment-target">午夜便利店</span></div>
+            <p class="comment-text">场景动线设计确实用心，货架和收银台的位置关系前后一致，这种细节在同类作品里不太常见。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">旧书页</span><span class="comment-target">她住在旧公寓</span></div>
+            <p class="comment-text">更新节奏偏慢，但每次更新质量都稳，第 22 话两条线交汇之后期待值更高了。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-head"><span class="comment-user">灰区观察</span><span class="comment-target">灰色地带</span></div>
+            <p class="comment-text">双线叙事偶尔会让人物动机交代得不够充分，不过整体紧张感维持得很好，适合喜欢快节奏的读者。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. 相关资讯 -->
+      <section class="section" id="news">
+        <div class="section-head">
+          <h2>相关资讯与动态</h2>
+          <span class="sub">2026 年 11 月</span>
+          <span class="line"></span>
+        </div>
+        <div class="news-list">
+          <article class="news-item">
+            <div class="news-thumb">
+              <img src="https://picsum.photos/seed/yexing-dangan-news01/600/400" alt="夜行档案第 12 话更新资讯配图" width="600" height="400" loading="lazy">
+            </div>
+            <div class="news-body">
+              <h3><a href="/#featured">《夜行档案》第 12 话解锁雨季档案新章</a></h3>
+              <p>档案管理员身世线索在本话首次与主线案件直接关联，单元结构与长线伏笔开始收束。</p>
+              <span class="news-date">2026-11-08</span>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb">
+              <img src="https://picsum.photos/seed/huise-didai-news02/600/400" alt="灰色地带第二季收网阶段资讯配图" width="600" height="400" loading="lazy">
+            </div>
+            <div class="news-body">
+              <h3><a href="/#featured">《灰色地带》第二季进入收网阶段</a></h3>
+              <p>线人身份暴露后，警方与地下势力的情报交易网开始瓦解，后续几话将集中处理立场反转。</p>
+              <span class="news-date">2026-11-07</span>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb">
+              <img src="https://picsum.photos/seed/feitu-xinshi-news03/600/400" alt="废土信使第一卷完结资讯配图" width="600" height="400" loading="lazy">
+            </div>
+            <div class="news-body">
+              <h3><a href="/#featured">《废土信使》第一卷完结，番外补充早期路线</a></h3>
+              <p>完结番外公开了信使早期送信路线设定，为第二卷的跨聚落叙事提供背景补充。</p>
+              <span class="news-date">2026-11-04</span>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb">
+              <img src="https://picsum.photos/seed/wuhai-lvren-news04/600/400" alt="雾海旅人古代航线坐标揭晓资讯配图" width="600" height="400" loading="lazy">
+            </div>
+            <div class="news-body">
+              <h3><a href="/#featured">《雾海旅人》古代航线终点坐标首次明确</a></h3>
+              <p>第 45 话给出的坐标与前期遗迹线索对应，海域势力围绕航线的争夺进入新阶段。</p>
+              <span class="news-date">2026-11-03</span>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb">
+              <img src="https://picsum.photos/seed/lingchen-dianhua-news05/600/400" alt="凌晨四点的电话短篇合集更新资讯配图" width="600" height="400" loading="lazy">
+            </div>
+            <div class="news-body">
+              <h3><a href="/#featured">《凌晨四点的电话》新增「回拨」短篇</a></h3>
+              <p>短篇合集第 16 话延续都市怪谈路线，围绕深夜来电的回拨展开，反转集中在篇末。</p>
+              <span class="news-date">2026-10-30</span>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-thumb">
+              <img src="https://picsum.photos/seed/longgu-biannian-news06/600/400" alt="龙骨编年史北境盟约破裂资讯配图" width="600" height="400" loading="lazy">
+            </div>
+            <div class="news-body">
+              <h3><a href="/#featured">《龙骨编年史》北境盟约破裂，战争线进入新章</a></h3>
+              <p>第 33 话多方势力重新站队，此前铺垫的边境冲突正式升级为全面战争线。</p>
+              <span class="news-date">2026-10-28</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 10. 相关推荐 -->
+      <section class="section" id="related">
+        <div class="section-head">
+          <h2>延伸方向与同类索引</h2>
+          <span class="line"></span>
+        </div>
+        <div class="rec-tags">
+          <a href="/#featured" class="rec-tag">法庭推理漫画</a>
+          <a href="/#featured" class="rec-tag">夜班群像题材</a>
+          <a href="/#featured" class="rec-tag">航海冒险长篇</a>
+          <a href="/#featured" class="rec-tag">都市怪谈短篇</a>
+          <a href="/#featured" class="rec-tag">架空大陆战争</a>
+          <a href="/#featured" class="rec-tag">双线叙事犯罪</a>
+          <a href="/#featured" class="rec-tag">公路废土流</a>
+          <a href="/#featured" class="rec-tag">生活流美食单元</a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 右侧辅助栏 -->
+    <aside class="right-sidebar" aria-label="辅助信息">
+      <div class="side-panel" id="rank">
+        <h3>本周人气榜</h3>
+        <ol class="rank-list">
+          <li><span class="rank-num">1</span><span class="rank-name">夜行档案</span><span class="rank-heat">9.2</span></li>
+          <li><span class="rank-num">2</span><span class="rank-name">雾海旅人</span><span class="rank-heat">9.0</span></li>
+          <li><span class="rank-num">3</span><span class="rank-name">灰色地带</span><span class="rank-heat">8.9</span></li>
+          <li><span class="rank-num">4</span><span class="rank-name">午夜便利店</span><span class="rank-heat">8.8</span></li>
+          <li><span class="rank-num">5</span><span class="rank-name">她住在旧公寓</span><span class="rank-heat">8.7</span></li>
+          <li><span class="rank-num">6</span><span class="rank-name">废土信使</span><span class="rank-heat">8.6</span></li>
+          <li><span class="rank-num">7</span><span class="rank-name">龙骨编年史</span><span class="rank-heat">8.5</span></li>
+          <li><span class="rank-num">8</span><span class="rank-name">凌晨四点的电话</span><span class="rank-heat">8.4</span></li>
+        </ol>
+      </div>
+
+      <div class="side-panel">
+        <h3>近期更新时间线</h3>
+        <ol class="rank-list">
+          <li><span class="rank-num">11/08</span><span class="rank-name">夜行档案 第12话</span></li>
+          <li><span class="rank-num">11/08</span><span class="rank-name">灰色地带 第二季第9话</span></li>
+          <li><span class="rank-num">11/07</span><span class="rank-name">雾海旅人 第45话</span></li>
+          <li><span class="rank-num">11/07</span><span class="rank-name">她住在旧公寓 第22话</span></li>
+          <li><span class="rank-num">11/06</span><span class="rank-name">凌晨四点的电话 第16话</span></li>
+          <li><span class="rank-num">11/05</span><span class="rank-name">龙骨编年史 第33话</span></li>
+        </ol>
+      </div>
+
+      <div class="side-panel">
+        <h3>类型速览</h3>
+        <div class="rec-tags" style="gap:6px;">
+          <a href="/#categories" class="rec-tag" style="padding:4px 10px;font-size:12px;">悬疑推理</a>
+          <a href="/#categories" class="rec-tag" style="padding:4px 10px;font-size:12px;">都市情感</a>
+          <a href="/#categories" class="rec-tag" style="padding:4px 10px;font-size:12px;">奇幻冒险</a>
+          <a href="/#categories" class="rec-tag" style="padding:4px 10px;font-size:12px;">犯罪黑帮</a>
+          <a href="/#categories" class="rec-tag" style="padding:4px 10px;font-size:12px;">科幻末世</a>
+          <a href="/#categories" class="rec-tag" style="padding:4px 10px;font-size:12px;">恐怖灵异</a>
+          <a href="/#categories" class="rec-tag" style="padding:4px 10px;font-size:12px;">历史古风</a>
+          <a href="/#categories" class="rec-tag" style="padding:4px 10px;font-size:12px;">恋爱日常</a>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand" style="margin-bottom:10px;">
+            <svg viewBox="0 0 100 100" width="30" height="30" aria-hidden="true">
+              <rect width="100" height="100" rx="20" fill="#1a1e2c"/>
+              <path d="M28 72 L50 26 L72 72 Z" fill="#e8a33d"/>
+              <circle cx="50" cy="58" r="9" fill="#12141c"/>
+              <circle cx="50" cy="58" r="4" fill="#f5e6d3"/>
+            </svg>
+            <span class="brand-text" style="font-size:20px;">老司机漫画</span>
+          </div>
+          <p>聚焦成人向漫画的类别导航与条目索引，覆盖悬疑推理、都市情感、奇幻冒险、犯罪黑帮等成熟题材方向，为偏好深度叙事与画面表现的读者提供按类型、按节奏的挑选路径。</p>
+        </div>
+        <div class="footer-col">
+          <h4>内容频道</h4>
+          <ul>
+            <li><a href="/#overview">领域概览</a></li>
+            <li><a href="/#featured">精选推荐</a></li>
+            <li><a href="/#updates">最新更新</a></li>
+            <li><a href="/#categories">分类频道</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>阅读参考</h4>
+          <ul>
+            <li><a href="/#deep-dive">深度解析</a></li>
+            <li><a href="/#guide">阅读指南</a></li>
+            <li><a href="/#faq">常见问答</a></li>
+            <li><a href="/#comments">读者评论</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>动态与榜单</h4>
+          <ul>
+            <li><a href="/#news">相关资讯</a></li>
+            <li><a href="/#related">延伸方向</a></li>
+            <li><a href="/#rank">本周人气榜</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 老司机漫画 · 内容聚合示例页面</span>
+        <span>部分内容为示例数据，仅用于展示页面结构</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // 本地搜索筛选
+      var searchInput = document.getElementById('searchInput');
+      var searchBtn = document.getElementById('searchBtn');
+      var grid = document.getElementById('featuredGrid');
+      var noResult = document.getElementById('noResult');
+      var cards = grid ? Array.prototype.slice.call(grid.querySelectorAll('.comic-card')) : [];
+
+      function doSearch() {
+        var q = (searchInput.value || '').trim().toLowerCase();
+        if (!q) {
+          cards.forEach(function(c) { c.style.display = ''; });
+          if (noResult) noResult.classList.remove('show');
+          return;
+        }
+        var visible = 0;
+        cards.forEach(function(c) {
+          var text = (c.getAttribute('data-title') || '') + ' ' + c.textContent;
+          if (text.toLowerCase().indexOf(q) !== -1) {
+            c.style.display = '';
+            visible++;
+          } else {
+            c.style.display = 'none';
+          }
+        });
+        if (noResult) {
+          if (visible === 0) noResult.classList.add('show');
+          else noResult.classList.remove('show');
+        }
+      }
+
+      if (searchBtn) searchBtn.addEventListener('click', doSearch);
+      if (searchInput) {
+        searchInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') { e.preventDefault(); doSearch(); }
+        });
+        searchInput.addEventListener('input', doSearch);
+      }
+    })();
+  </script>
+</body>
+  </html>
